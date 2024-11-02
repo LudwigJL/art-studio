@@ -13,7 +13,7 @@ export default class Painter {
 
     static async fromJSON(json) {
         const { name, country, alive } = json
-        return new Painter( name, country, alive )
+        return new Painter( null, name, country, alive )
     }
 
     constructor(
@@ -53,13 +53,43 @@ export default class Painter {
         return Painter.fromDb(createdPainter)
     }
 
+    async update(){
+        const data = {
+            name: this.name,
+            country: this.country,
+            alive: this.alive,
+        }
+
+        const updatedPainter = await dbClient.painter.update({
+            where: {
+                id: this.id,
+            },
+            data
+        })
+
+        return Painter.fromDb(updatedPainter)
+    }
+
+    static async findById(id){
+        return Painter._findByUnique('id', id)
+    }
+
     static async findAll() {
         return Painter._findMany()
     }
 
+    static async _findByUnique(key, value){
+        //add include here later
+        const foundPainter = await dbClient.painter.findUnique({
+            where:{
+                [key] : value
+            },
+        })
+        return foundPainter ? Painter.fromDb(foundPainter) : null
+    }
 
     static async _findMany(key, value) {
-        //Create a query here later
+        //add include here later
 
        const foundPainters = await dbClient.painter.findMany()
        return foundPainters.map((painter) => Painter.fromDb(painter))
