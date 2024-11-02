@@ -15,9 +15,16 @@ export const create = async (req, res) => {
 }
 
 export const getAll = async (req, res) => {
+    const { name: name } = req.query
 
-    const foundPainters = await Painter.findAll()
+    let foundPainters
 
+    if(name){
+        foundPainters = await Painter.findManyByName(name)
+    } else {
+        foundPainters = await Painter.findAll()
+    }
+    
     const formattedPainters = foundPainters.map((painter) => {
         return {
             ...painter.toJSON().painter
@@ -30,13 +37,11 @@ export const update = async (req, res) => {
     const id = parseInt(req.params.id)
     const newPainterData = await Painter.fromJSON(req.body)
 
-    let testFoundPainter = await Painter.findById(id)
-
     try {
         let foundPainter = await Painter.findById(id)
 
         if(!foundPainter){
-            return sendDataResponse(res, 404, 'Painter not found')
+            return sendDataResponse(res, 404, 'Painter with that id found')
         }
 
         foundPainter.name = newPainterData.name
@@ -47,7 +52,30 @@ export const update = async (req, res) => {
 
         return sendDataResponse(res, 200, updatedPainter)
     }catch(error){
-        return sendMessageResponse(res, 500, 'Unable to get user')
+        return sendMessageResponse(res, 500, 'Unable to update user')
     }
-
 }
+
+export const remove = async (req, res) => {
+    const id = parseInt(req.params.id)
+    const testFoundPainter = await Painter.findById(id)
+
+    console.log(id)
+    console.log(testFoundPainter)
+
+    try{
+        const foundPainter = await Painter.findById(id)
+
+        if(!foundPainter){
+            return sendDataResponse(res, 404, 'Painter with that id not found')
+        }
+
+        const removedPainter = await foundPainter.remove()
+        
+        return sendDataResponse(res, 200, removedPainter)
+    }catch(error){
+        return sendMessageResponse(res, 500, 'Unable to remove user')
+    }
+}
+
+

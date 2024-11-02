@@ -70,12 +70,38 @@ export default class Painter {
         return Painter.fromDb(updatedPainter)
     }
 
+    async remove(){
+        const deletePainter = await dbClient.painter.delete({
+            where: {
+                id: this.id
+            }
+        })
+
+        return deletePainter;
+    }
+
     static async findById(id){
         return Painter._findByUnique('id', id)
     }
 
     static async findAll() {
         return Painter._findMany()
+    }
+
+    static async findManyByName(name){
+        try {
+            const painters = await dbClient.painter.findMany({
+                where: {
+                    name: {
+                        contains: name,
+                        mode: "insensitive"
+                    }
+                }
+            })
+            return painters.map((painter) => Painter.fromDb(painter))
+        } catch (error){
+            throw new Error('Error fetching users by name: ' + error.message)
+        }
     }
 
     static async _findByUnique(key, value){
