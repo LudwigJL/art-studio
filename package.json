@@ -1,0 +1,25 @@
+{
+  "name": "museum-dev-server",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jasmine",
+    "test:coverage": "c8 jasmine",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "db-reset": "prisma migrate reset"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "prisma": "^5.21.1"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.21.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "yaml": "^2.6.0"
+  }
+}
