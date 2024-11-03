@@ -8,6 +8,7 @@ export default class Painter {
             painter.name,
             painter.country,
             painter.alive,
+            painter.paintings
         )
     }
 

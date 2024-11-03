@@ -39,6 +39,9 @@ async function main() {
             genre: 'Postimpressionism',
             creationYear: 1889,
             dimensionsSize: '73 x 92 cm'
+        },
+        include: {
+            painter: true
         }
     })
 
@@ -49,6 +52,9 @@ async function main() {
             genre: 'Postimpressionism',
             creationYear: 1889,
             dimensionsSize: '65 x 54 cm'
+        },
+        include: {
+            painter: true
         }
     })
 
@@ -60,6 +66,9 @@ async function main() {
             genre: 'Symbolism',
             creationYear: 1889,
             dimensionsSize: '65 x 54 cm'
+        },
+        include: {
+            painter: true
         }
     })
 
@@ -70,6 +79,9 @@ async function main() {
             genre: 'Symbolism',
             creationYear: 1889,
             dimensionsSize: '65 x 54 cm'
+        },
+        include: {
+            painter: true
         }
     })
 
