@@ -39,18 +39,16 @@ export default class Painting {
 
     toJSON(){
         return{
-            painting: {
-                id: this.id,
-                name: this.name,
-                genre: this.genre,
-                creationYear: this.creationYear,
-                dimensionsSize: this.dimensionsSize,
-                painter: {
-                    id: this.painter.id,
-                    name: this.painter.name,
-                    country: this.painter.country,
-                    alive: this.painter.alive
-                }
+            id: this.id,
+            name: this.name,
+            genre: this.genre,
+            creationYear: this.creationYear,
+            dimensionsSize: this.dimensionsSize,
+            painter: {
+                id: this.painter.id,
+                name: this.painter.name,
+                country: this.painter.country,
+                alive: this.painter.alive
             }
         }
     }

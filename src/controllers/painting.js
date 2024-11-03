@@ -14,13 +14,11 @@ export const create = async (req, res) => {
 }
 
 export const getAll = async (req, res) => {
-    const foundPaintings = await Painting.findAll()
-    
-    const formattedPaintings = foundPaintings.map((painting) => {
-        return {
-            ...painting.toJSON().painting
-        }
-    })
+    try{
+        const foundPaintings = await Painting.findAll()
 
-    return sendDataResponse(res, 200, {paintings: formattedPaintings})
+       return sendDataResponse(res, 200, {paintings: foundPaintings})
+    } catch (error) {
+        return sendMessageResponse(res, 500, 'Internal server error fetching all paintings')
+    }
 }
