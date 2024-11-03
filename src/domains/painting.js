@@ -1,4 +1,4 @@
-import dbClient from "../utils/dbClient.js";
+import dbClient from "../utils/dbClient.js"
 
 export default class Painting {
 
@@ -16,7 +16,7 @@ export default class Painting {
 
     static async fromJSON(json){
         const { name, genre, creationYear, dimensionsSize, painterId } = json
-        return new Painting (null, name, genre, creationYear, dimensionsSize, painterId)
+        return new Painting (null, name, genre, creationYear, dimensionsSize, painterId, null)
     }
 
     constructor(
@@ -63,10 +63,14 @@ export default class Painting {
         }
 
         const createdPainting = await dbClient.painting.create({
-            data
+            data,
+            include: {
+                painter: true
+            }
         })
 
-        return Painter.fromDb(createdPainting)
+        console.log('Inseted: ', createdPainting)
+        return Painting.fromDb(createdPainting)
     }
 
 

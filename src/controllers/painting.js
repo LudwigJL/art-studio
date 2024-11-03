@@ -8,9 +8,9 @@ export const create = async (req, res) => {
         const createdPainting = await paintingToCreate.save()
 
         return sendDataResponse(res, 201, createdPainting)
-    } catch (error){
-        return sendDataResponse(res, 500, 'Unable to create new painting')
-    }
+    } catch (error) {
+        return sendDataResponse(res, 500, 'Unable to create new painting');
+    }    
 }
 
 export const getAll = async (req, res) => {

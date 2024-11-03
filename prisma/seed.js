@@ -28,9 +28,30 @@ async function main() {
         }
     })
 
-    console.log('Created painter 1:', painter1)
-    console.log('Created painter 2', painter2)
-    console.log('Created painter: ', painter3)
+    const painter4 = await prisma.painter.create({
+        data: {
+            name: 'Guiseppe Archimboldo',
+            alive: false,
+            country: 'Italy'
+        }
+    })
+
+    console.log('Created painter 1 ', painter1)
+    console.log('Created painter 2 ', painter2)
+    console.log('Created painter 3 ', painter3)
+
+    const testPainting = await prisma.painting.create({
+        data: {
+            "name": "The Jurist",
+	        "genre": "Naturism",
+	        "creationYear": 1555,
+	        "dimensionsSize": "64 cm × 51 cm",
+	        "painterId": 4
+        },
+        include: {
+            painter: true
+        }
+    })
 
     const painting1 = await prisma.painting.create({
         data: {
@@ -85,6 +106,7 @@ async function main() {
         }
     })
 
+    console.log()
     console.log('Created painting 1:', painting1)
     console.log('Created painting 2: ', painting2)
     console.log('Created painting 1:', painting3)
